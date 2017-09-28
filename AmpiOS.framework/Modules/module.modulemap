@@ -1,0 +1,4 @@
+framework module AmpiOS {
+    header "AmpiOS-Swift.h"
+    requires objc
+}
