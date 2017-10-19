@@ -194,7 +194,7 @@ SWIFT_CLASS("_TtC6AmpiOS3Amp")
 
 @interface Amp (SWIFT_EXTENSION(AmpiOS))
 - (void)observeWithName:(NSString * _Nonnull)name properties:(NSDictionary<NSString *, id> * _Nonnull)properties;
-- (NSDictionary<NSString *, id> * _Nonnull)decideWithName:(NSString * _Nonnull)name candidates:(NSDictionary<NSString *, id> * _Nonnull)candidates options:(NSDictionary<NSString *, id> * _Nonnull)options SWIFT_WARN_UNUSED_RESULT;
+- (NSDictionary<NSString *, id> * _Nonnull)decideWithName:(NSString * _Nonnull)name candidates:(NSDictionary<NSString *, NSArray *> * _Nonnull)candidates options:(NSDictionary<NSString *, id> * _Nonnull)options SWIFT_WARN_UNUSED_RESULT;
 @end
 
 @class UITouch;
