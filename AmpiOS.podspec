@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 
     s.platform          = :ios, '10.0'
 
-    s.source            = { :git => 'https://github.com/ScaledInference/Amp-iOS-SDK.git', :tag => 'v1.0.1' }
+    s.source            = { :git => 'https://github.com/ScaledInference/Amp-iOS-SDK.git', :tag => 'v1.0.3' }
     
     s.ios.vendored_frameworks = 'AmpiOS.framework'
 end
