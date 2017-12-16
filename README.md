@@ -22,14 +22,12 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'Amp'
-    pod 'AmpiOS'
+pod 'AmpiOS'
 end
 ```
 You can use a specific version of `Amp`, by specifying the version:
 ``` Ruby
-pod 'Amp', '~> 1.0'
-pod 'AmpiOS', '~> 1.0'
+pod 'AmpiOS', '~> 1.0.2'
 ```
 
 ### Install the Amp/AmpiOS pods
@@ -59,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var amp: Amp!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        AppDelegate.amp = Amp(key: "<your_project_key>", options: [:])
+        AppDelegate.amp = Amp(key: "<your_project_key>", config: nil)
 
         return true
     }
@@ -69,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        AppDelegate.amp = Amp(key: "<your_project_key>", options: [:])
+        AppDelegate.amp = Amp(key: "<your_project_key>", config: nil)
     }
 }
 ```
@@ -90,7 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 
-    _amp = [[Amp alloc] initWithKey:@"<your_project_key>" options:@{}];
+    _amp = [[Amp alloc] initWithKey:@"<your_project_key>" userId:nil config:nil];
     
     return YES;
 }
@@ -100,14 +98,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
-    _amp = NULL;
+    _amp = nil;
 }
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     
-    _amp = [[Amp alloc] initWithKey:@"<your_project_key>" options:@{}];
+   _amp = [[Amp alloc] initWithKey:@"<your_project_key>" userId:nil config:nil];
 }
 ```
 
@@ -135,7 +133,7 @@ let colorDecision = AppDelegate.amp.decide("ButtonColor", ["color":["blue", "ora
 
 >Objective-C
 ``` ObjectiveC
-NSDictionary* decision = [_amp decideWithName:@"ButtonStyle" candidates:@{@"color": @[@"orange", @"blue", @"green"]} options:@{}];
+NSDictionary* decision = [_amp decideWithName:@"ButtonStyle" candidates:@{@"color": @[@"orange", @"blue", @"green"]} ttl:nil];
 ```
 
 ### Builtin Events
@@ -259,7 +257,7 @@ override func viewWillAppear(_ animated: Bool) {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    NSDictionary* decision = [_amp decideWithName:@"ButtonStyle" candidates:@{@"color": @[@"orange", @"blue", @"green"]} options:@{}];
+    NSDictionary* decision = [_amp decideWithName:@"ButtonStyle" candidates:@{@"color": @[@"orange", @"blue", @"green"]} ttl:nil];
     
     NSDictionary* colors = @{@"orange": [UIColor orangeColor], @"blue": [UIColor blueColor], @"green": [UIColor greenColor]};
     
@@ -290,7 +288,7 @@ NotificationCenter.default.addObserver(self, selector: #selector(ViewController.
 ...
 - (void)orientationChanged:(NSNotification *) sender {                        }
     UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
-    NSDictionary* decision = [_amp decideWithName:@"LandscapeView" candidates:@{@"view": @[@"SplitLeft", @"Normal", @"SplitRight"]} options:@{}];
+    NSDictionary* decision = [_amp decideWithName:@"LandscapeView" candidates:@{@"view": @[@"SplitLeft", @"Normal", @"SplitRight"]} ttl:nil];
     
     if (UIDeviceOrientationIsLandscape(deviceOrientation)) {
         [self performSegueWithIdentifier:[NSString stringWithFormat:@"%@", [decision objectForKey:@"view"]] sender:self];

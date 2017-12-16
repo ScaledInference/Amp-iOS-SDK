@@ -6,31 +6,31 @@
 	<dict>
 		<key>Headers/AmpiOS-Swift.h</key>
 		<data>
-		bxB1gjWU0DPEDTOSMXeo6Sdwi6g=
+		QKK60M0Xm7IhQb3PCxmFaGgVAEo=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		h+HwfGjJPxCYvJT5jlimpw+w4G4=
+		DIhOceHcc9YIAvRLdEFPAdP1XP8=
 		</data>
-		<key>Modules/AmpiOS.swiftmodule/arm.swiftdoc</key>
+		<key>Modules/AmpiOS.swiftmodule/i386.swiftdoc</key>
 		<data>
-		CfpmAuL3vU6nqlPlvztbBoUxQmM=
+		sWvL2c1E1m/Vci/KKwgWvevrbSc=
 		</data>
-		<key>Modules/AmpiOS.swiftmodule/arm.swiftmodule</key>
+		<key>Modules/AmpiOS.swiftmodule/i386.swiftmodule</key>
 		<data>
-		MZZyIYdqpoMAUpTf2DzqAr523mY=
+		rvxOCS+qyaHrookivVShqC8Z1M4=
 		</data>
-		<key>Modules/AmpiOS.swiftmodule/arm64.swiftdoc</key>
+		<key>Modules/AmpiOS.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		ohmFnb2/xddh+F1uzSYt/cgqQ7w=
+		OCLsEasAaifxnou9mGlJQfCrYDU=
 		</data>
-		<key>Modules/AmpiOS.swiftmodule/arm64.swiftmodule</key>
+		<key>Modules/AmpiOS.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		24VDwYpg4stL+1fC3BN3vhX2mTg=
+		97u0P2kvGhhVlqqGqlySx2WNFuo=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		7Wagiw03s5qqhVofBnmzeM0/ExI=
+		aXNF3sC5GeD5o6+Als54jF5+syM=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -39,66 +39,66 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			bxB1gjWU0DPEDTOSMXeo6Sdwi6g=
+			QKK60M0Xm7IhQb3PCxmFaGgVAEo=
 			</data>
 			<key>hash2</key>
 			<data>
-			LCFo/ode77DWVz9f/+/vDCvdJNIO7ye8rCYzdViFgy4=
+			3Yc9t9OINnxVzv5kNQBdm+4F3CNL7Q17bCih8aT5ux8=
 			</data>
 		</dict>
-		<key>Modules/AmpiOS.swiftmodule/arm.swiftdoc</key>
+		<key>Modules/AmpiOS.swiftmodule/i386.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			CfpmAuL3vU6nqlPlvztbBoUxQmM=
+			sWvL2c1E1m/Vci/KKwgWvevrbSc=
 			</data>
 			<key>hash2</key>
 			<data>
-			05CMYzzGchH7FCXEaywmNYKhXLUnbcwaKGIemsFM3Lw=
+			WG4LMbMleNE4R0IhAusLlVMG3vzDIrSy800V7BjEfhQ=
 			</data>
 		</dict>
-		<key>Modules/AmpiOS.swiftmodule/arm.swiftmodule</key>
+		<key>Modules/AmpiOS.swiftmodule/i386.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			MZZyIYdqpoMAUpTf2DzqAr523mY=
+			rvxOCS+qyaHrookivVShqC8Z1M4=
 			</data>
 			<key>hash2</key>
 			<data>
-			EBuGN0L0iEAMiI5Qr3SB8UJaToOrCNcFOHCUTvyuT00=
+			xKF63l3ARYI17S1UiCa1O9iQcgiYvpvlmMDsTkhXR5M=
 			</data>
 		</dict>
-		<key>Modules/AmpiOS.swiftmodule/arm64.swiftdoc</key>
+		<key>Modules/AmpiOS.swiftmodule/x86_64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ohmFnb2/xddh+F1uzSYt/cgqQ7w=
+			OCLsEasAaifxnou9mGlJQfCrYDU=
 			</data>
 			<key>hash2</key>
 			<data>
-			a8zC0OZ0GMg9bTsrShVRKyd7WZhGeIVghbC0MR3qILo=
+			CYAmnQWk0out92bFVDv/2ZbMepUtG6JLa2bPfXlUsMk=
 			</data>
 		</dict>
-		<key>Modules/AmpiOS.swiftmodule/arm64.swiftmodule</key>
+		<key>Modules/AmpiOS.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			24VDwYpg4stL+1fC3BN3vhX2mTg=
+			97u0P2kvGhhVlqqGqlySx2WNFuo=
 			</data>
 			<key>hash2</key>
 			<data>
-			gGK4f93c7HLYJlyVeKyEeswGJs/8jJFpQL0szk2baLY=
+			Oijg9NknVPUpaBDYfYMwvTXFE5KnynEGpr2wfmN3zzw=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			7Wagiw03s5qqhVofBnmzeM0/ExI=
+			aXNF3sC5GeD5o6+Als54jF5+syM=
 			</data>
 			<key>hash2</key>
 			<data>
-			bzYv9lWE0iXHKvFA3Z1LuTDtuv8MPgLkgI3qcHcAP4c=
+			672g/QyGwZZ3UMfeWSXpLE37RenDVW7vjEtS2WRwzTs=
 			</data>
 		</dict>
 	</dict>

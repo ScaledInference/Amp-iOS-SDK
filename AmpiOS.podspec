@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|  
     s.name              = 'AmpiOS'
-    s.version           = '1.0.1'
+    s.version           = '1.0.3'
     s.summary           = 'Amp.ai client for iOS  applications.'
     s.homepage          = 'https://github.com/ScaledInference/Amp-iOS-SDK.git'
     s.author            = { 'Steve Mask' => 'steve@scaledinference.com' }
