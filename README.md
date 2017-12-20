@@ -22,19 +22,19 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-pod 'AmpiOS'
+    pod 'AmpiOS'
 end
 ```
 You can use a specific version of `Amp`, by specifying the version:
 ``` Ruby
-pod 'AmpiOS', '~> 1.0.2'
+pod 'AmpiOS', '~> 1.0'
 ```
 
 ### Install the Amp/AmpiOS pods
 ``` Ruby
 $ pod install
 ```
-To upgrade to the latest version of `Amp` and `AmpiOS` in the future, run:
+To upgrade to the latest version of `AmpiOS` in the future, run:
 ``` Ruby
 $ pod update
 ```
@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var amp: Amp!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        AppDelegate.amp = Amp(key: "<your_project_key>", config: nil)
+        AppDelegate.amp = Amp(key: "<your_project_key>")
 
         return true
     }
@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        AppDelegate.amp = Amp(key: "<your_project_key>", config: nil)
+        AppDelegate.amp = Amp(key: "<your_project_key>")
     }
 }
 ```
@@ -77,35 +77,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 #import "AppDelegate.h"
 @import AmpiOS;
 
-
-@interface AppDelegate ()
-
-@end
-
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-
-    _amp = [[Amp alloc] initWithKey:@"<your_project_key>" userId:nil config:nil];
+    _amp = [[Amp alloc] initWithKey:@"<your_project_key>" userId:<userId> config:<Config>];
     
     return YES;
 }
 
-
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    
     _amp = nil;
 }
 
-
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    
-   _amp = [[Amp alloc] initWithKey:@"<your_project_key>" userId:nil config:nil];
+    _amp = [[Amp alloc] initWithKey:@"<your_project_key>" userId:<userId> config:<Config>];
 }
 ```
 
