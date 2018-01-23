@@ -100,7 +100,7 @@ In the above example, we make the assumption that an user session is from when t
 Making `observe` requests can be called directly from your Amp instance with the Amp-iOS client.
 >Swift
 ``` Swift
-AppDelegate.amp.observe("Signup", ["lang": "en", "timeOfDay": "evening"])
+amp.observe("Signup", ["lang": "en", "timeOfDay": "evening"])
 ```
 
 >Objective-C
@@ -113,7 +113,7 @@ And it is no different with your `decide` requests.
 
 >Swift
 ``` Swift
-let colorDecision = AppDelegate.amp.decide("ButtonColor", ["color":["blue", "orange", "green"]])
+let colorDecision = amp.decide("ButtonColor", ["color":["blue", "orange", "green"]])
 ```
 
 >Objective-C
@@ -138,7 +138,7 @@ override func viewDidLoad() {
     super.viewDidLoad()
 
     if let title = self.navigationItem.title {
-        AppDelegate.amp?.observe(name: "AmpPage", properties: ["title": title])
+        amp?.observe(name: "AmpPage", properties: ["title": title])
     }
 }
 ```
@@ -161,7 +161,7 @@ Amp already tracks these for you through one of our built-in events, `AmpTap`.  
 >Swift
 ``` Swift
 @IBAction func buttonPressed(_ sender: UIButton) {
-    AppDelegate.amp?.observe(name: "Signup", properties: [:])
+    amp?.observe(name: "Signup", properties: [:])
 }
 ```
 
@@ -181,7 +181,7 @@ Use a delegate method to help you here.
 
 func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
     if let textValue = searchBar.text {
-        AppDelegate.amp?.observe(name: "Search", properties: ["value": textValue])
+        amp?.observe(name: "Search", properties: ["value": textValue])
     }
 }
 ```
@@ -205,7 +205,7 @@ The following example only observes scrolling if greater than 100 using the UITa
 
 func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
     if targetContentOffset.pointee.y > 100 {
-        AppDelegate.amp?.observe(name: "PageScroll", properties: ["page":"Welcome"])
+        amp?.observe(name: "PageScroll", properties: ["page":"Welcome"])
     }
 }
 ```
@@ -230,7 +230,7 @@ func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity
 override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
-    let decision = AppDelegate.amp.decide(name: "ButtonStyle", candidates: ["color": ["orange", "blue", "green"]])
+    let decision = amp.decide(name: "ButtonStyle", candidates: ["color": ["orange", "blue", "green"]])
     
     let colors = ["orange": UIColor.orange, "blue": UIColor.blue, "green": UIColor.green]
     pressMeBtn.setTitleColor(colors[decision["color"] as! String], for: .normal)
@@ -259,7 +259,7 @@ NotificationCenter.default.addObserver(self, selector: #selector(ViewController.
 ...
 @objc func orientationChanged(notification: Notification) {
     let deviceOrientation = UIDevice.current.orientation
-    let decision = AppDelegate.amp.decide("LandscapeView", ["view": ["SplitLeft", "Normal", "SplitRight"]])
+    let decision = amp.decide("LandscapeView", ["view": ["SplitLeft", "Normal", "SplitRight"]])
 
     if UIDeviceOrientationIsLandscape(deviceOrientation) {
         self.performSegue(withIdentifier: "decision["view"] as! String, sender: self)
