@@ -1,7 +1,7 @@
 # Amp-iOS
 <sup>by Scaled Inference</sup>
 
-iOS client for Amp.ai. The iOS client supports both Objective-C and Swift projects that are compatible with Swift 3.2 / 4 and iOS 10 and above.
+iOS client for Amp.ai. The iOS client supports both Objective-C and Swift projects that are compatible with Swift 4 and iOS 10 and above.
 
 ## Overview
 The documentation to follow for the Amp-iOS client augments the documentation of the [Amp-Swift client](https://github.com/ScaledInference/Amp-Swift-SDK.git).  Please refer there for core functionality.  Amp-iOS extends the Amp-Swift client by providing built-in events, auto-session creation and convenience `observe` and `decide` event calls from the `amp` instance rather than the `session` instance.
@@ -119,6 +119,34 @@ let colorDecision = amp.decide("ButtonColor", ["color":["blue", "orange", "green
 >Objective-C
 ``` ObjectiveC
 NSDictionary* decision = [_amp decideWithName:@"ButtonStyle" candidates:@{@"color": @[@"orange", @"blue", @"green"]} ttl:nil];
+```
+
+### LoadRules
+Use this when you need to ensure that decisions made through `decide()` are made based on the rules provided by the server. A common use case is when a one-time decision must be made on start of the application. If the rules are already available, the callback will be called immediately from this method. If the rules are not ready, it will wait for the sync to complete and callback will be executed.
+
+>Swift
+``` Swift
+dialog.show()
+amp.loadRules(timeout: timeoutInMilliseconds) { error in
+        // The callback is executed on the main thread, so it's safe to change the UI
+        dialog.dismiss()
+
+        // Chose a color for button that will suite current customer
+        let colorDecision = amp.decide(name: "ButtonColor", candidates: ["color":["blue", "orange", "green"]])
+        ...
+}
+```
+>Objective-C
+``` ObjectiveC
+[dialog show];
+[amp loadRulesWithTimeout:timeoutInMilliseconds callback:^(NSError *error) {
+        // The callback is executed on the main thread, so it's safe to change the UI
+        [dialog dismiss];
+
+        // Chose a color for button that will suite current customer
+        NSDictionary* colorDecision = [amp decideWithName:"ButtonColor" candidates: @{@"color":@[@"blue", @"orange", @"green"]}];
+        ...
+}];
 ```
 
 ### Builtin Events

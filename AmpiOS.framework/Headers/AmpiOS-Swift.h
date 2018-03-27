@@ -173,6 +173,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 #if __has_feature(modules)
 @import ObjectiveC;
+@import Foundation;
 @import UIKit;
 #endif
 
@@ -231,6 +232,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 - (NSDictionary<NSString *, id> * _Nonnull)decideWithName:(NSString * _Nonnull)name candidates:(NSDictionary<NSString *, NSArray *> * _Nonnull)candidates ttl:(NSNumber * _Nullable)ttl SWIFT_WARN_UNUSED_RESULT;
 @end
 
+
+
 enum LogLevel : NSInteger;
 
 /// Configuration to be used with Amp, Session or a single request.
@@ -252,9 +255,20 @@ SWIFT_CLASS("_TtC6AmpiOS6Config")
 
 
 
+
+
 @interface CoreAmp (SWIFT_EXTENSION(AmpiOS))
-/// Check if there are any configurations changes and update if needed.
-- (void)syncWithCallback:(void (^ _Nullable)(NSError * _Nullable, NSDictionary<NSString *, id> * _Nullable))callback;
+/// A method that will trigger the provided completion listener when configuration is synced from the server.
+/// Use this when you need to ensure that decisions made through <code>decide</code>
+/// or similar methods are made based on the rules provided by the server.
+/// If the rules are already available, the callback will be called immediately from this method.
+/// If the rules are not ready, it will wait for the sync to complete and callback will be executed from the
+/// main thread.
+/// \param timeout Max timeout to wait for the config from server in milliseconds. If the call exceeds the timeout, callback will be called with <code>error</code>.
+///
+/// \param callback A callback to be executed when the configuration is available.
+///
+- (void)loadRulesWithTimeout:(NSInteger)timeout callback:(void (^ _Nonnull)(NSError * _Nullable))callback;
 @end
 
 
@@ -267,10 +281,22 @@ typedef SWIFT_ENUM(NSInteger, LogLevel) {
 };
 
 
+SWIFT_CLASS("_TtC6AmpiOS14NetworkManager")
+@interface NetworkManager : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
+@end
+
+
+
+
 SWIFT_CLASS("_TtC6AmpiOS7Session")
 @interface Session : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
+
+
+
+
 
 
 
