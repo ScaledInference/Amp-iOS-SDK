@@ -281,6 +281,8 @@ typedef SWIFT_ENUM(NSInteger, LogLevel) {
 };
 
 
+
+
 SWIFT_CLASS("_TtC6AmpiOS14NetworkManager")
 @interface NetworkManager : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
