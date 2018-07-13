@@ -1,7 +1,7 @@
 # Amp-iOS
 <sup>by Scaled Inference</sup>
 
-iOS client for Amp.ai. The iOS client supports both Objective-C and Swift projects that are compatible with Swift 4 and iOS 10 and above.
+iOS client for Amp.ai. The iOS client supports both Objective-C and Swift projects that are compatible with Swift 4 and iOS 9 and above.
 
 ## Overview
 The documentation to follow for the Amp-iOS client augments the documentation of the [Amp-Swift client](https://github.com/ScaledInference/Amp-Swift-SDK.git).  Please refer there for core functionality.  Amp-iOS extends the Amp-Swift client by providing built-in events, auto-session creation and convenience `observe` and `decide` event calls from the `amp` instance rather than the `session` instance.
@@ -18,7 +18,7 @@ $ pod init
 
 ### Add the Amp/AmpiOS pods under the target section of your newly generated Podfile
 ``` Ruby
-platform :ios, '10.0'
+platform :ios, '9.0'
 use_frameworks!
 
 target '<Your Target Name>' do
@@ -58,16 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         AppDelegate.amp = Amp(key: "<your_project_key>")
-
+        ...
         return true
-    }
-    ...
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        AppDelegate.amp = nil
-    }
-    
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        AppDelegate.amp = Amp(key: "<your_project_key>")
     }
 }
 ```
@@ -81,16 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     _amp = [[Amp alloc] initWithKey:@"<your_project_key>" userId:<userId> config:<Config>];
-    
+    ...
     return YES;
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    _amp = nil;
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    _amp = [[Amp alloc] initWithKey:@"<your_project_key>" userId:<userId> config:<Config>];
 }
 ```
 
