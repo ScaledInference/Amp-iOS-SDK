@@ -256,6 +256,8 @@ SWIFT_CLASS("_TtC6AmpiOS6Config")
 
 
 
+
+
 SWIFT_PROTOCOL("_TtP6AmpiOS16SnapshotDelegate_")
 @protocol SnapshotDelegate
 - (NSDictionary<NSString *, id> * _Nonnull)createSnapshot SWIFT_WARN_UNUSED_RESULT;
@@ -265,6 +267,8 @@ SWIFT_PROTOCOL("_TtP6AmpiOS16SnapshotDelegate_")
 @interface CoreAmp (SWIFT_EXTENSION(AmpiOS)) <SnapshotDelegate>
 - (NSDictionary<NSString *, id> * _Nonnull)createSnapshot SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 @interface CoreAmp (SWIFT_EXTENSION(AmpiOS))
@@ -280,8 +284,6 @@ SWIFT_PROTOCOL("_TtP6AmpiOS16SnapshotDelegate_")
 ///
 - (void)loadRulesWithTimeout:(NSInteger)timeout callback:(void (^ _Nonnull)(NSError * _Nullable))callback;
 @end
-
-
 
 
 
@@ -313,13 +315,13 @@ SWIFT_CLASS("_TtC6AmpiOS7Session")
 @end
 
 
-
-
-
-
 @interface Session (SWIFT_EXTENSION(AmpiOS)) <SnapshotDelegate>
 - (NSDictionary<NSString *, id> * _Nonnull)createSnapshot SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
+
+
 
 
 
