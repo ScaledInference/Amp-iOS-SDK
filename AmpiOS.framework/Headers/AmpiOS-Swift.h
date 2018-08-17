@@ -186,7 +186,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 SWIFT_CLASS("_TtC6AmpiOS7CoreAmp")
 @interface CoreAmp : NSObject
-@property (nonatomic, copy) NSString * _Null_unspecified key;
+@property (nonatomic, copy) NSString * _Nonnull key;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 @end
@@ -233,6 +233,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 
 
 
+
+
 enum LogLevel : NSInteger;
 
 /// Configuration to be used with Amp, Session or a single request.
@@ -248,7 +250,7 @@ SWIFT_CLASS("_TtC6AmpiOS6Config")
 ///
 /// returns:
 /// A configuration instance for Amp.
-+ (Config * _Nonnull)ampConfigWithBuiltinEvents:(NSArray<NSString *> * _Nullable)builtinEvents logLevel:(enum LogLevel)logLevel sessionTTL:(NSNumber * _Nullable)sessionTTL SWIFT_WARN_UNUSED_RESULT;
++ (Config * _Nonnull)ampConfigWithBuiltinEvents:(NSArray<NSString *> * _Nullable)builtinEvents logLevel:(enum LogLevel)logLevel sessionTTL:(NSNumber * _Nullable)sessionTTL sessionLifetime:(NSNumber * _Nullable)sessionLifetime SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -272,6 +274,10 @@ SWIFT_PROTOCOL("_TtP6AmpiOS16SnapshotDelegate_")
 
 
 @interface CoreAmp (SWIFT_EXTENSION(AmpiOS))
+/// Force creation of a new session.
+/// \param userId Id of the current user.
+///
+- (void)startNewSessionWithUserId:(NSString * _Nullable)userId;
 /// A method that will trigger the provided completion listener when configuration is synced from the server.
 /// Use this when you need to ensure that decisions made through <code>decide</code>
 /// or similar methods are made based on the rules provided by the server.
@@ -308,6 +314,12 @@ SWIFT_CLASS("_TtC6AmpiOS14NetworkManager")
 
 
 
+SWIFT_PROTOCOL("_TtP6AmpiOS5SIAmp_")
+@protocol SIAmp
+- (void)startNewSessionWithUserId:(NSString * _Nullable)userId;
+@end
+
+
 SWIFT_CLASS("_TtC6AmpiOS7Session")
 @interface Session : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -318,6 +330,8 @@ SWIFT_CLASS("_TtC6AmpiOS7Session")
 @interface Session (SWIFT_EXTENSION(AmpiOS)) <SnapshotDelegate>
 - (NSDictionary<NSString *, id> * _Nonnull)createSnapshot SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 
