@@ -1,10 +1,23 @@
 # Amp-iOS
 <sup>by Scaled Inference</sup>
 
-iOS client for Amp.ai. The iOS client supports both Objective-C and Swift projects that are compatible with Swift 4 and iOS 9 and above.
+<br>
+iOS client for Amp.ai.
 
-## Overview
-The documentation to follow for the Amp-iOS client augments the documentation of the [Amp-Swift client](https://github.com/ScaledInference/Amp-Swift-SDK.git).  Please refer there for core functionality.  Amp-iOS extends the Amp-Swift client by providing built-in events, auto-session creation and convenience `observe` and `decide` event calls from the `amp` instance rather than the `session` instance.
+## Amp.ai
+Amp.ai is a cloud AI platform that can enhance any software application that integrates with it by making intelligent, goal-driven, context-sensitive decisions. Think of it as A/B testing on steroids.  While A/B testing provides information about what choice to take across all users, Amp.ai will provide you with a decision that is specific to a context and will continue to improve and provide your users with the best decision based on the context they are in.
+
+## Compatibility
+The iOS client supports both Objective-C and Swift projects that are compatible with Swift 4 and iOS 9 and above.
+
+## Getting Started
+### Reference Documentation
+1. Install Xcode from the App Store
+2. [Apple Developer](https://developer.apple.com/documentation/)
+3. [Xcode](https://developer.apple.com/xcode/)
+4. [Swift](https://developer.apple.com/swift/)
+5. [iOS](https://developer.apple.com/ios/)
+6. [CocoaPods](https://cocoapods.org)
 
 ## CocoaPods
 ### Install Cocoapods
@@ -16,7 +29,7 @@ $ gem install cocoapods
 $ pod init
 ```
 
-### Add the Amp/AmpiOS pods under the target section of your newly generated Podfile
+### Add the AmpiOS pod under the target section of your newly generated Podfile
 ``` Ruby
 platform :ios, '9.0'
 use_frameworks!
@@ -25,12 +38,12 @@ target '<Your Target Name>' do
     pod 'AmpiOS'
 end
 ```
-You can use a specific version of `Amp`, by specifying the version:
+You can use a specific version of `AmpiOS`, by specifying the version:
 ``` Ruby
 pod 'AmpiOS', '~> 1.0'
 ```
 
-### Install the Amp/AmpiOS pods
+### Install the AmpiOS pod
 ``` Ruby
 $ pod install
 ```
@@ -43,7 +56,7 @@ After installing the pods, Xcode will prompt you to reopen the project using the
 ## AmpiOS
 
 ### Initialization
-Initializing the Amp-iOS client is similar to the Amp-Swift client but simpler as you don't have to initialize the session instance.  Here is an example of initializing Amp in your `AppDelegate`:
+To use amp, import the Amp framework and create an amp instance with a class. Here is an example of initializing Amp in your `AppDelegate`:
 
 >Swift
 ``` Swift
@@ -78,19 +91,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 
-In the above example, we make the assumption that an user session is from when they open the app until the app enters the background.  How you define an user session is completely up to you.  It may be that you define it by the time they enter the application to 30 minutes.
+These lines initialize the amp and session instances that represent a single session in the Amp project corresponding to the `projectKey` that will be given to you. In the above example, we make the assumption that an user session is from when the app is created. How you define an user session is completely up to you.  It may be that you define it by the time they enter the application to 30 minutes.
 
 ### Observe
-Making `observe` requests can be called directly from your Amp instance with the Amp-iOS client.
 >Swift
 ``` Swift
-amp.observe("Signup", ["lang": "en", "timeOfDay": "evening"])
+amp.observe("CheckoutAmount", ["amount": amount])
 ```
 
 >Objective-C
 ```ObjectiveC
-[_amp observeWithName:@"Signup" properties:@{@"lang": @"en", @"timeOfDay": @"evening"}];
+[_amp observeWithName:@"CheckoutAmount" properties:@{@"amount": amount}];
 ```
+Most likely, you will want to include `observe` events to capture user context prior to decision-making and metrics. You would place this within action or delegate methods to capture events or at the startup of your app to capture contexts which will help to improve upon your business goals.
 
 ### Decide
 And it is no different with your `decide` requests.
@@ -104,6 +117,7 @@ let colorDecision = amp.decide("ButtonColor", ["color":["blue", "orange", "green
 ``` ObjectiveC
 NSDictionary* decision = [_amp decideWithName:@"ButtonStyle" candidates:@{@"color": @[@"orange", @"blue", @"green"]} ttl:nil];
 ```
+Learning to make decisions to improve your metric is the key value Amp provides. Simply define the candidates, e.g. the style of the button, that are likely to make a difference for your metric, and Amp will help you learn from your data and make the best decision!
 
 ### LoadRules
 Use this when you need to ensure that decisions made through `decide()` are made based on the rules provided by the server. A common use case is when a one-time decision must be made on start of the application. If the rules are already available, the callback will be called immediately from this method. If the rules are not ready, it will wait for the sync to complete and callback will be executed.
@@ -134,10 +148,20 @@ amp.loadRules(timeout: timeoutInMilliseconds) { error in
 ```
 
 ### Builtin Events
-By default, when using the Amp-iOS client, we will observe taps through the `AmpTap` event on buttons and general session information on the `AmpSession` event. 
+By default, when using the AmpiOS client, we will observe taps through the `AmpTap` event on buttons and general session information on the `AmpSession` event. 
+
+
+### Configuration Options
+
+|Name|Default Value|Data Type|Details|
+|----|:-----------:|:-------:|-------|
+|.logLevel|.warn|LogLevel|.error, .warn, .info, .debug|
+|.builtinEvents|[String]|Array|Events that are created upon initialization|
+|.sessionTTL|0|Milliseconds|Session time to live|
+
 
 ## Usage
-There are many ways in which you will want to use Amp.  You may want to track how often each page is typically visited in your application or how far down a scrollable page your user scrolls.  If your application requires sign up and registration, you may want to track the number of taps on the sign up button because you may want to increase your user's sign up rate using Amp.  The possibilities are endless, and with Amp, not only will it track whatever you ask of it, it will also check the context in which these events occurred.  With this information, Amp will make the best decisions to improve on whatever business goals you have.
+There are many ways in which you will want to use Amp. You may want to track how often each page is typically visited in your application or how far down a scrollable page your user scrolls.  If your application requires sign up and registration, you may want to track the occurrence of taps on the sign up button because you may want to increase your user's sign up rate using Amp.  The possibilities are endless, and with Amp, not only will it track whatever you ask of it, it will also check the context in which these events occurred.  With this information, Amp will make the best decisions to improve on whatever business goals you have.
 Below are just a few examples on how you might make `observe` and `decide` requests in your application.
 
 ### Observe Usages
