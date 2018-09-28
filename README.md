@@ -40,7 +40,7 @@ end
 ```
 You can use a specific version of `AmpiOS`, by specifying the version:
 ``` Ruby
-pod 'AmpiOS', '~> 1.0'
+pod 'AmpiOS', '~> 1.1'
 ```
 
 ### Install the AmpiOS pod
