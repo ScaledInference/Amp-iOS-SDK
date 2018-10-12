@@ -207,8 +207,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 - (nullable instancetype)initWithKey:(NSString * _Nonnull)key resume:(NSString * _Nonnull)serializedSession config:(Config * _Nullable)config;
 @end
 
-
-
 @class NSNumber;
 
 @interface Amp (SWIFT_EXTENSION(AmpiOS))
@@ -230,6 +228,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 /// A locally computed response based on current policy.
 - (NSDictionary<NSString *, id> * _Nonnull)decideWithName:(NSString * _Nonnull)name candidates:(NSDictionary<NSString *, NSArray *> * _Nonnull)candidates ttl:(NSNumber * _Nullable)ttl SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
 
 
 
@@ -350,6 +350,10 @@ SWIFT_CLASS("_TtC6AmpiOS7Session")
 @interface UIButton (SWIFT_EXTENSION(AmpiOS))
 - (void)endTrackingWithTouch:(UITouch * _Nullable)touch withEvent:(UIEvent * _Nullable)event;
 @end
+
+
+
+
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
