@@ -10,6 +10,6 @@ Pod::Spec.new do |s|
 
     s.source            = { :git => 'https://github.com/ScaledInference/Amp-iOS-SDK.git', :tag => 'v1.1.3' }
     
-	s.dependency 'SQLite.swift', '~> 0.11.5'
+	s.dependency 'SQLite.swift', '<= 0.11.4'
     s.ios.vendored_frameworks = 'AmpiOS.framework'
 end
