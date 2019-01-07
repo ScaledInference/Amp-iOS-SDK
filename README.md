@@ -5,7 +5,7 @@
 iOS client for Amp.ai.
 
 ## Amp.ai
-Amp.ai is a cloud AI platform that can enhance any software application that integrates with it by making intelligent, goal-driven, context-sensitive decisions. Think of it as A/B testing on steroids.  While A/B testing provides information about what choice to take across all users, Amp.ai will provide you with a decision that is specific to a context and will continue to improve and provide your users with the best decision based on the context they are in.
+Amp.ai is a cloud AI platform that can enhance any software application that integrates with it by making intelligent, goal-driven, context-sensitive decisions. Think of it as A/B testing on steroids. While A/B testing provides information about what choice to take across all users, Amp.ai will provide you with a decision that is specific to a context and will continue to improve and provide your users with the best decision based on the context they are in.
 
 ## Compatibility
 The iOS client supports both Objective-C and Swift projects that are compatible with Swift 4 and iOS 9 and above.
@@ -20,16 +20,8 @@ The iOS client supports both Objective-C and Swift projects that are compatible 
 6. [CocoaPods](https://cocoapods.org)
 
 ## CocoaPods
-### Install Cocoapods
-``` Swift
-$ gem install cocoapods 
-```
-### Initialize Cocoapods in your project
-```
-$ pod init
-```
 
-### Add the AmpiOS pod under the target section of your newly generated Podfile
+### Add the AmpiOS pod under the target section of your Podfile
 ``` Ruby
 platform :ios, '9.0'
 use_frameworks!
@@ -56,7 +48,7 @@ After installing the pods, Xcode will prompt you to reopen the project using the
 ## AmpiOS
 
 ### Initialization
-To use amp, import the Amp framework and create an amp instance with a class. Here is an example of initializing Amp in your `AppDelegate`:
+To use amp, import the Amp framework and create an amp instance with a class. The Amp instance should be created at the application startup to handle session lifecycle properly. Here is an example of initializing Amp in your `AppDelegate`:
 
 >Swift
 ``` Swift
@@ -65,12 +57,9 @@ import AmpiOS
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    var window: UIWindow?
-    static var amp: Amp!
-    
+    ...
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        AppDelegate.amp = Amp(key: "<your_project_key>")
+        amp = Amp(key: "<your_project_key>")
         ...
         return true
     }
@@ -91,33 +80,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 
-These lines initialize the amp and session instances that represent a single session in the Amp project corresponding to the `projectKey` that will be given to you. How to define a user session is completely up to you. The default behavior is to end the session after inactivity period (the app in background state and no events were fired) becomes more than `sessionTTL`, or time interval since session creation is more than `sessionLifetime`.
+These lines initialize the amp and session instances that represent a single session in the Amp project corresponding to the `projectKey` that will be given to you. How to define a user session is completely up to you. Please see [this section](#session) for detailed information.
 
-### Observe
+### Context
+Observe the context by sending events to Amp.ai. Events in a session that precede a decision point form the "context" for that decision. Amp automatically discovers relevant contexts for decisions as the data evolves, and does so continuously. You have the option of sending additional context by explicitly using the 'observe' API call. For example, a business-specific context could be a Customer context, with a property, "type", and a value of "Free" or "Premium".
+
 >Swift
 ``` Swift
-amp.observe("CheckoutAmount", ["amount": amount])
+amp.observe("Customer", ["type": "Premium"])
 ```
 
 >Objective-C
 ```ObjectiveC
-[_amp observeWithName:@"CheckoutAmount" properties:@{@"amount": amount}];
+[_amp observeWithName:@"Customer" properties:@{@"type": @"Premium"}];
 ```
-Most likely, you will want to include `observe` events to capture user context prior to decision-making and metrics. You would place this within action or delegate methods to capture events or at the startup of your app to capture contexts which will help to improve upon your business goals.
 
 ### Decide
-And it is no different with your `decide` requests.
+Leverage the power of Amp.ai by invoking the `decide` API call. The call consists of decision candidates that are presented to Amp. The first candidate in the list is treated by Amp as the `default`, and this decision would be used in the baseline group. Amp will pick the decision that results in maximizing the probability of improving your business metrics. For example, users in Japan using the Chrome browser may prefer to purchase ice-cream instead of chocolate. Amp would learn this behavior as it observes that this user segment typically chooses this action and results in improved sales.
 
 >Swift
 ``` Swift
-let colorDecision = amp.decide("ButtonColor", ["color":["blue", "orange", "green"]])
+let colorDecision = amp.decide("Snack", ["choice":["Chocolate", "Ice Cream", "Cookies"]])
 ```
 
 >Objective-C
 ``` ObjectiveC
-NSDictionary* decision = [_amp decideWithName:@"ButtonStyle" candidates:@{@"color": @[@"orange", @"blue", @"green"]} ttl:nil];
+NSDictionary* decision = [_amp decideWithName:@"Snack" candidates:@{@"choice": @[@"Chocolate", @"Ice Cream", @"Cookies"]} ttl:nil];
 ```
-Learning to make decisions to improve your metric is the key value Amp provides. Simply define the candidates, e.g. the style of the button, that are likely to make a difference for your metric, and Amp will help you learn from your data and make the best decision!
+
+### Outcome
+The outcome is simply the business metric you are optimizing for. Amp can optimize multiple metrics simultaneously. Once the metric has been defined, Amp.ai is informed of the outcome by an `observe` call.
+
+>Swift
+``` Swift
+amp.observe("Sale", [])
+```
+
+>Objective-C
+```ObjectiveC
+[_amp observeWithName:@"Sale" properties:@{}];
+```
+
+## Advanced settings
 
 ### LoadRules
 Use this when you need to ensure that decisions made through `decide()` are made based on the rules provided by the server. A common use case is when a one-time decision must be made on start of the application. If the rules are already available, the callback will be called immediately from this method. If the rules are not ready, it will wait for the sync to complete and callback will be executed.
@@ -147,11 +151,27 @@ amp.loadRules(timeout: timeoutInMilliseconds) { error in
 }];
 ```
 
+### Session
+
+The default behavior is to end the session after inactivity period (the app in background state and no events were fired) becomes more than `sessionTTL`, or time interval since session creation is more than `sessionLifetime`.
+`sessionTTL`, `sessionLifetime` could be set up during amp initialization. You could also explicitly finish the current session and start a new one using the following method:
+
+>Swift
+``` Swift
+amp.startNewSession()
+```
+
+>Objective-C
+``` ObjectiveC
+[amp.startNewSession startNewSession];
+```
+
 ### Builtin Events
 By default, when using the AmpiOS client, we will observe taps through the `AmpTap` event on buttons and general session information on the `AmpSession` event. 
 
 
 ### Configuration Options
+The following options are available.
 
 |Name|Default Value|Data Type|Details|
 |----|:-----------:|:-------:|-------|
