@@ -180,6 +180,30 @@ The following options are available.
 |sessionTTL|15 minutes|Int64|Session time to live in milliseconds|
 |sessionLifetime|24 hours|Int64|Session lifetime in milliseconds|
 
+### Preview mode
+
+When it’s time to test the variants of the decision call, the preview mode will help to do just that. When enabled, it will allow preselecting the result of the next decide call. Note: don’t use it in the release version, as it’s only for testing.
+
+To turn on the preview mode, enable it in the Amp config:
+
+>Swift
+``` Swift
+let config = ConfigBuilder()
+            .set(previewMode: true)
+            .build()
+let amp = Amp(key: key, config: config)
+``` 
+>Objective-C
+``` ObjectiveC
+
+Config *config = [[[[ConfigBuilder alloc] init]
+                       setWithPreviewMode:@YES] build];
+Amp *amp = [[Amp alloc] initWithKey:key userId:nil config:config];
+```
+Here is how it will look:
+![Preview mode](preview.png)
+
+
 ## Usage
 There are many ways in which you will want to use Amp. You may want to track how often each page is typically visited in your application or how far down a scrollable page your user scrolls.  If your application requires sign up and registration, you may want to track the occurrence of taps on the sign up button because you may want to increase your user's sign up rate using Amp.  The possibilities are endless, and with Amp, not only will it track whatever you ask of it, it will also check the context in which these events occurred.  With this information, Amp will make the best decisions to improve on whatever business goals you have.
 Below are just a few examples on how you might make `observe` and `decide` requests in your application.
